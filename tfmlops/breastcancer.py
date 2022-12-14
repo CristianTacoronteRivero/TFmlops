@@ -156,7 +156,7 @@ class BcSklearn:
 
     def save_model(self, name):
         with open(name, "wb") as f:
-            pickle.dump(name)
+            pickle.dump(name, f)
 
 
 if __name__ == "__main__":
