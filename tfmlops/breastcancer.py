@@ -52,11 +52,9 @@ class BcSklearn:
         :type y: Series, optional
         :param random_state:  defaults to 42
         :type random_state: int, optional
-        :param test_size: Proporcion de datos para el proceso de test siendo el valor
-        minimo 0 y maximo 1, defaults to 0.3
+        :param test_size: Proporcion de datos para el proceso de test siendo el valorminimo 0 y maximo 1, defaults to 0.3
         :type test_size: float, optional
-        :return: Devuelve 4 variables donde se obtiene los features y target tanto para
-        el entrenamiento como para el test
+        :return: Devuelve 4 variables donde se obtiene los features y target tanto parael entrenamiento como para el test
         :rtype: DataFrame | Series
         """
         if isinstance(X, NoneType):
@@ -76,8 +74,7 @@ class BcSklearn:
         """Método encargado de construir un modelo simple mediante el método ensamblado
         "voting"
 
-        :param X_train: Dataframe de "muestra" para especificar a qué columnas se le
-        deben de realizar las trasnformaciones
+        :param X_train: Dataframe de "muestra" para especificar a qué columnas se ledeben de realizar las trasnformaciones
         :type X_train: DataFrame
         :return: Modelo no ajustado pero completamente construido
         :rtype: sklearn.ensemble._voting.VotingRegressor
@@ -154,29 +151,12 @@ class BcSklearn:
 
         return r2, mse
 
-    def save_model(self, name):
+    def save_model(self, name: str):
+        """Método para generar un archivo .pkl que
+        guarda el modelo entrenado
+
+        :param name: Nombre del fichero .pkl
+        :type name: str
+        """
         with open(name, "wb") as f:
             pickle.dump(name, f)
-
-
-if __name__ == "__main__":
-    RANDOM_STATE = 5
-    TEST_SIZE = 0.25
-
-    ins = BcSklearn()
-
-    X, y = ins.get_X_y()
-    X_train, X_test, y_train, y_test = ins.split_train_test(
-        random_state=RANDOM_STATE, test_size=TEST_SIZE
-    )
-    model = ins.build_pipeline(X_train)
-
-    model_opt = ins.search_and_fit(
-        model,
-        X_train,
-        y_train,
-        {"n_neighbors": [1, 2, 3], "p": [3, 4, 5]},
-        {"n_estimators": [100, 200]},
-    )
-
-    r2, mse = ins.metricas_regresion(X_test, y_test)
