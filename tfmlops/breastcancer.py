@@ -19,6 +19,7 @@ from sklearn.ensemble import RandomForestRegressor, VotingRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.impute import KNNImputer
 from sklearn.metrics import r2_score, mean_squared_error, max_error
+import pickle
 
 
 class BcSklearn:
@@ -152,6 +153,10 @@ class BcSklearn:
         # me = max_error(y_test, self.grid.predict(X_test))
 
         return r2, mse
+
+    def save_model(self, name):
+        with open(name, "wb") as f:
+            pickle.dump(name)
 
 
 if __name__ == "__main__":
