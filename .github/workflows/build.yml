@@ -2,7 +2,7 @@ name: Building
 on:
   push:
     tags:
-      - "v**"
+      - "v*"
 
 jobs:
   building:
